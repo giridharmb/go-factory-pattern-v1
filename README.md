@@ -36,3 +36,7 @@ Output
     "MaxTemp": 7.36
 }
 ```
+
+![Screenshot](01.jpg)
+
+![Screenshot](02.jpg)
