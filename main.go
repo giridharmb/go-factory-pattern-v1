@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"go-factory-pattern/factory"
 	"log"
@@ -14,7 +15,28 @@ func SetupConstructors(apiKey string, city string) factory.IWeather {
 
 func main() {
 
-	weatherI := SetupConstructors("606c01e9eafe84058752ab69f86d74f8", "london")
+	apiKeyPtr := flag.String("apikey", "<apikey>", "open-weather api key")
+	cityPtr := flag.String("city", "<city>", "name of the city")
+
+	var apiKey string
+	var city string
+
+	flag.Parse()
+
+	city = *cityPtr
+	apiKey = *apiKeyPtr
+
+	if city == "" {
+		log.Printf("provide valid -city <city>")
+		return
+	}
+
+	if city == "" {
+		log.Printf("provide valid -apikey <apikey>")
+		return
+	}
+
+	weatherI := SetupConstructors(apiKey, city)
 
 	weather, err := weatherI.GetWeather()
 	if err != nil {
@@ -34,17 +56,3 @@ func PrettyPrintData(data interface{}) {
 	}
 	fmt.Printf("\n%v\n\n", string(dataBytes))
 }
-
-/*
-Output
-
-2022/12/28 13:08:28 @ provider : path : /weather?q=london&appid=606c01e9eafe84058752ab69f86d74f8&units=metric
-2022/12/28 13:08:28 @ provider : completeURL : https://api.openweathermap.org/data/2.5/weather?q=london&appid=606c01e9eafe84058752ab69f86d74f8&units=metric
-
-{
-    "Temp": 10.22,
-    "Pressure": 995,
-    "MinTemp": 9.51,
-    "MaxTemp": 10.99
-}
-*/

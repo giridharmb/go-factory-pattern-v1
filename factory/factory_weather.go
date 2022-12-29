@@ -9,8 +9,7 @@ import (
 )
 
 const (
-	endpoint = "https://api.openweathermap.org/data/2.5"
-	//endpoint                = "https://api.openweathermap.org/data/3.0/onecall"
+	endpoint                = "https://api.openweathermap.org/data/2.5"
 	pathFormatWeatherByCity = "/weather?q=%s&appid=%s&units=metric"
 )
 
